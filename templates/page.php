@@ -2,8 +2,9 @@
 $seo_obj = $page; $seo_type = 'page';
 require __DIR__ . '/partials/header.php';
 
-// Banner image: use the page's hero_image if set, otherwise a branded default.
-$bannerImg = !empty($page['hero_image']) ? $page['hero_image'] : asset('image/hero-bg.jpg');
+// Banner stays the branded default; the page's own photo is shown above the H1 in the content.
+$bannerImg = asset('image/hero-bg.jpg');
+$featImg   = !empty($page['hero_image']) ? $page['hero_image'] : '';
 $phoneTel  = preg_replace('/\s+/', '', setting('phone', SITE_PHONE));
 
 $svgPin  = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>';
@@ -22,6 +23,7 @@ $svgPhone= '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="
 <section class="section">
   <div class="container page-layout">
     <div class="page-main">
+      <?php if ($featImg): ?><img class="page-feat" src="<?= e($featImg) ?>" alt="<?= e($page['title']) ?>" loading="lazy"><?php endif; ?>
       <h1 class="page-title"><?= e($page['hero_heading'] ?: $page['title']) ?></h1>
       <article class="prose"><?= $page['content'] ?></article>
     </div>
