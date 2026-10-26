@@ -203,18 +203,23 @@ $bsvg = [
 </section>
 
 <!-- ===== CTA BAND ===== -->
-<section class="section">
+<section class="section cta-section">
   <div class="container">
-    <div class="cta-band reveal" style="background-image:linear-gradient(90deg,rgba(7,21,45,.92),rgba(7,21,45,.5)),url('<?= asset('image/london_air.jpg') ?>')">
-      <span class="eyebrow">Get in Touch</span>
-      <h2>Your Next Journey Starts Here.</h2>
-      <div class="contact-row">
-        <a href="tel:<?= e(preg_replace('/\s+/','',setting('phone',SITE_PHONE))) ?>"><span class="i">📞</span><?= e(setting('phone',SITE_PHONE)) ?></a>
-        <a href="mailto:<?= e(setting('email',SITE_EMAIL)) ?>"><span class="i">✉</span><?= e(setting('email',SITE_EMAIL)) ?></a>
-      </div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap">
-        <a class="btn btn-primary btn-lg" href="#book">Get Your Quote →</a>
-        <a class="btn btn-ghost btn-lg" href="<?= url('contact-us') ?>">Contact Our Team</a>
+    <div class="cta-band reveal">
+      <div class="cta-bg" aria-hidden="true"><span class="cta-orb o1"></span><span class="cta-orb o2"></span><span class="cta-orb o3"></span></div>
+      <div class="cta-inner">
+        <div class="cta-copy">
+          <span class="eyebrow">Get in Touch</span>
+          <h2>Your Next Journey Starts Here.</h2>
+          <div class="contact-row">
+            <a href="tel:<?= e(preg_replace('/\s+/','',setting('phone',SITE_PHONE))) ?>"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><?= e(setting('phone',SITE_PHONE)) ?></a>
+            <a href="mailto:<?= e(setting('email',SITE_EMAIL)) ?>"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="m22 7-9.1 5.5a2 2 0 0 1-2.06 0L2 7"/></svg></span><?= e(setting('email',SITE_EMAIL)) ?></a>
+          </div>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary btn-lg" href="#book">Get Your Quote →</a>
+          <a class="btn btn-ghost btn-lg" href="<?= url('contact-us') ?>">Contact Our Team</a>
+        </div>
       </div>
     </div>
   </div>
