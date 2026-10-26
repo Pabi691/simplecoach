@@ -430,24 +430,20 @@ img{max-width:100%;display:block}
   padding:11px 18px;border-radius:999px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-sm);transition:.25s}
 .chip:hover{border-color:var(--cyan);color:var(--royal);transform:translateY(-2px)}
 .chip .i{color:var(--cyan)}
-/* ===== Coverage map (cinematic) ===== */
-.cov-map{position:relative;min-height:450px;border-radius:22px;overflow:hidden;padding:18px;
-  background:linear-gradient(155deg,#eef6ff 0%,#d8e9fc 55%,#c2dcf8 100%);box-shadow:0 18px 50px rgba(12,45,110,.14)}
-.cov-svg{position:relative;z-index:1;width:100%;height:auto;max-width:520px;margin:0 auto;display:block;
-  filter:drop-shadow(0 12px 28px rgba(10,30,70,.28))}
-.cov-land{fill:url(#landGrad);stroke:rgba(33,185,243,.35);stroke-width:1}
-.cov-route{stroke:rgba(33,185,243,.5);stroke-width:2;fill:none;stroke-dasharray:100;stroke-dashoffset:100;animation:covDraw 1.8s ease forwards}
-@keyframes covDraw{to{stroke-dashoffset:0}}
-.cov-flow{stroke:#21B9F3;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-dasharray:3 97;filter:drop-shadow(0 0 5px #21B9F3);animation:covFlow 2.6s linear infinite}
-@keyframes covFlow{from{stroke-dashoffset:0}to{stroke-dashoffset:-100}}
-.cov-node{fill:#21B9F3;filter:drop-shadow(0 0 6px #21B9F3)}
-.cov-pulse{fill:none;stroke:#21B9F3;stroke-width:2;opacity:.8;transform-box:fill-box;transform-origin:center;animation:covPulse 2.4s ease-out infinite}
-@keyframes covPulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(4);opacity:0}}
-.cov-lab{position:absolute;z-index:2;transform:translate(-50%,-50%);background:rgba(10,31,73,.92);color:#fff;
-  font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:7px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25)}
-.cov-script{position:absolute;top:16px;right:22px;z-index:2;font-family:'Dancing Script','Segoe Script',cursive;
-  font-size:2.1rem;line-height:1;color:#153C91;transform:rotate(-7deg);font-weight:700;opacity:.92;text-align:center}
-@media (prefers-reduced-motion: reduce){.cov-flow,.cov-pulse{animation:none}.cov-route{stroke-dashoffset:0;animation:none}}
+/* ===== Coverage map (image + overlaid labels) ===== */
+.cov-map{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(12,45,110,.14)}
+.cov-img{display:block;width:100%;height:auto}
+.cov-lab{position:absolute;z-index:3;transform:translateY(-50%);margin-left:17px;
+  background:rgba(7,21,45,.82);color:#fff;border:1px solid rgba(120,210,255,.55);
+  font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 6px 16px rgba(4,12,28,.4);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.cov-lab::before{content:"";position:absolute;top:50%;left:-17px;transform:translate(-50%,-50%);
+  width:12px;height:12px;border-radius:50%;background:#21B9F3;box-shadow:0 0 10px 3px rgba(33,185,243,.85)}
+.cov-lab.l{margin-left:0;margin-right:17px;transform:translate(-100%,-50%)}
+.cov-lab.l::before{left:auto;right:-17px;transform:translate(50%,-50%)}
+.cov-script{position:absolute;top:14px;right:20px;z-index:4;font-family:'Dancing Script','Segoe Script',cursive;
+  font-size:2rem;line-height:1;color:#153C91;transform:rotate(-7deg);font-weight:700;opacity:.95;text-align:center}
+@media (max-width:620px){.cov-lab{font-size:.66rem;padding:3px 8px}.cov-script{font-size:1.5rem}}
 
 /* ---- CTA band ---- */
 .cta-band{position:relative;border-radius:var(--radius-lg);overflow:hidden;color:#fff;

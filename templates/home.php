@@ -170,49 +170,17 @@ $bsvg = [
       <h2>Wherever You Need to Go, We'll Get You There.</h2>
       <p class="lead">From major cities to local destinations, we provide reliable coach and minibus hire across the UK.</p>
       <div class="city-chips">
-        <?php foreach ($dest as $d): ?><a class="chip" href="<?= e(nav_url($d['url'])) ?>"><span class="i">📍</span><?= e($d['label']) ?></a><?php endforeach; ?>
+        <?php foreach ($dest as $d): ?><a class="chip" href="<?= e(nav_url($d['url'])) ?>"><span class="i"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span><?= e($d['label']) ?></a><?php endforeach; ?>
       </div>
     </div>
     <div class="cov-map reveal" id="covMap">
       <span class="cov-script">Nationwide Coverage</span>
-      <svg class="cov-svg" viewBox="0 0 460 560" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#1a3e82"/><stop offset="1" stop-color="#0a1f49"/>
-          </linearGradient>
-          <filter id="nGlow" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="4"/></filter>
-        </defs>
-        <!-- landmass -->
-        <path class="cov-land" d="M185,45 C205,42 212,62 214,80 C222,100 215,118 225,135 C238,152 232,168 222,180 C238,198 248,220 242,242 C255,258 266,270 270,288 C262,296 255,292 258,305 C280,308 296,316 294,332 C288,346 276,350 282,366 C272,380 252,386 232,384 C208,388 182,384 162,390 C142,397 125,408 116,398 C134,388 152,382 160,374 C148,372 138,378 128,372 C143,358 132,342 140,328 C127,320 136,308 150,305 C162,288 152,266 164,246 C150,228 160,208 150,190 C166,182 154,166 144,154 C158,142 148,126 156,110 C146,96 160,78 152,62 C165,52 170,48 185,45 Z"/>
-        <path class="cov-land" d="M95,250 C118,245 130,262 126,284 C132,306 120,328 100,336 C80,342 64,328 68,306 C62,286 76,258 95,250 Z"/>
-        <!-- routes: base + travelling light -->
-        <g>
-          <?php
-          $routes = [
-            'M175,165 Q195,160 215,170','M215,170 Q230,222 235,275','M235,275 Q228,290 222,300',
-            'M222,300 Q208,296 195,298','M235,275 Q230,315 222,350','M222,300 Q220,325 222,350',
-            'M222,350 Q262,372 290,400','M195,298 Q205,325 222,350',
-          ];
-          foreach ($routes as $i => $d) echo '<path class="cov-route" pathLength="100" d="'.$d.'" style="animation-delay:'.($i*0.15).'s"/>';
-          foreach ($routes as $i => $d) echo '<path class="cov-flow" pathLength="100" d="'.$d.'" style="animation-delay:'.($i*0.4).'s"/>';
-          ?>
-        </g>
-        <!-- city nodes -->
-        <g>
-          <?php
-          $nodes = [[175,165],[215,170],[235,275],[195,298],[222,300],[222,350],[290,400]];
-          foreach ($nodes as $i => $n) {
-            echo '<circle class="cov-pulse" cx="'.$n[0].'" cy="'.$n[1].'" r="4" style="animation-delay:'.($i*0.3).'s"/>';
-            echo '<circle class="cov-node" cx="'.$n[0].'" cy="'.$n[1].'" r="4.5"/>';
-          }
-          ?>
-        </g>
-      </svg>
+      <img class="cov-img" src="<?= asset('image/coverage-uk.png') ?>" alt="Map of the UK showing our nationwide coach and minibus coverage" loading="lazy">
       <?php foreach ([
-        ['Glasgow','36%','27%'],['Edinburgh','48%','28.5%'],['Leeds','52%','46%'],
-        ['Liverpool','33%','53%'],['Manchester','49.5%','53%'],['Birmingham','49%','64%'],['London','64%','73%'],
+        ['Glasgow','36%','34%','l'],['Edinburgh','44%','34%','r'],['Leeds','50%','49%','r'],
+        ['Liverpool','40%','57%','l'],['Manchester','47%','55%','r'],['Birmingham','46%','64%','r'],['London','55%','73%','r'],
       ] as $l): ?>
-        <span class="cov-lab" style="left:<?= $l[1] ?>;top:<?= $l[2] ?>"><?= e($l[0]) ?></span>
+        <span class="cov-lab<?= $l[3]==='l' ? ' l' : '' ?>" style="left:<?= $l[1] ?>;top:<?= $l[2] ?>"><?= e($l[0]) ?></span>
       <?php endforeach; ?>
     </div>
   </div>
