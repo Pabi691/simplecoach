@@ -316,12 +316,14 @@ $svgPhone = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 </section>
 
 <!-- ===== CITY LIST ===== -->
-<section class="section soft" style="padding-top:0">
-  <div class="container center">
-    <span class="eyebrow">Explore Our Destinations</span>
-    <h2 style="margin-bottom:26px">UK Cities We Cover</h2>
-    <div class="city-chips" style="justify-content:center">
-      <?php foreach ($dest as $d): ?><a class="chip" href="<?= e(nav_url($d['url'])) ?>"><span class="i">📍</span><?= e($d['label']) ?></a><?php endforeach; ?>
+<section class="section soft citylist-section">
+  <div class="container">
+    <div class="citylist-head">
+      <span class="eyebrow">Explore Our Destinations</span>
+      <h2>UK Cities We Cover</h2>
+    </div>
+    <div class="citylist-row">
+      <?php foreach ($dest as $d): ?><a class="city-link" href="<?= e(nav_url($d['url'])) ?>"><span class="i"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span><?= e($d['label']) ?></a><?php endforeach; ?>
     </div>
   </div>
 </section>
