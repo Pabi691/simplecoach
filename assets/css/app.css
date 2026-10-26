@@ -581,7 +581,15 @@ img{max-width:100%;display:block}
 .page-hero .sub{max-width:60ch;color:rgba(255,255,255,.85);margin-top:10px}
 /* inner page: content + sticky quote sidebar */
 .page-layout{display:grid;grid-template-columns:minmax(0,1fr) 358px;gap:clamp(30px,4vw,56px);align-items:start}
+.page-main{min-width:0}
 .page-layout .prose{max-width:none;margin:0}
+.page-hero .ph-title{font-size:clamp(1.2rem,2.3vw,1.55rem);font-weight:700;line-height:1.25;color:#fff;margin:4px 0 0}
+.page-title{font-family:var(--font-display);color:var(--royal);font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.12;margin:0 0 22px}
+/* Rank Math "Table of Contents" */
+.wp-block-rank-math-toc-block{background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:0 0 1.8em}
+.wp-block-rank-math-toc-block::before{content:"Table of Contents";display:block;font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--ink);margin-bottom:8px}
+.wp-block-rank-math-toc-block ul{margin:0;padding-left:1.15em}
+.wp-block-rank-math-toc-block a{color:var(--royal)}
 .page-side{position:sticky;top:calc(var(--header-h) + 18px)}
 .side-quote{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(12,45,110,.14);padding:22px}
 .side-quote .sq-h{margin:0 0 3px;font-size:1.2rem}

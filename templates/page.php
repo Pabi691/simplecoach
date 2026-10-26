@@ -14,14 +14,17 @@ $svgPhone= '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="
   <div class="container">
     <div class="breadcrumb"><a href="<?= url('') ?>">Home</a> / <?= e($page['title']) ?></div>
     <span class="eyebrow"><?= e(setting('site_name', SITE_NAME)) ?></span>
-    <h1><?= e($page['hero_heading'] ?: $page['title']) ?></h1>
+    <h4 class="ph-title"><?= e($page['hero_heading'] ?: $page['title']) ?></h4>
     <?php if (!empty($page['hero_subheading'])): ?><p class="sub"><?= e($page['hero_subheading']) ?></p><?php endif; ?>
   </div>
 </section>
 
 <section class="section">
   <div class="container page-layout">
-    <article class="prose"><?= $page['content'] ?></article>
+    <div class="page-main">
+      <h1 class="page-title"><?= e($page['hero_heading'] ?: $page['title']) ?></h1>
+      <article class="prose"><?= $page['content'] ?></article>
+    </div>
 
     <aside class="page-side">
       <div class="side-quote" id="book">
