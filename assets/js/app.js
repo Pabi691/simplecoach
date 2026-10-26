@@ -87,8 +87,11 @@
       breakpoints: { 640: { slidesPerView: 2 }, 992: { slidesPerView: 3 } },
     });
     if ($('.testiSwiper')) new Swiper('.testiSwiper', {
-      slidesPerView: 1, spaceBetween: 24, loop: true, autoplay: { delay: 6000 },
+      slidesPerView: 1.08, spaceBetween: 20, loop: true, grabCursor: true,
+      autoplay: { delay: 6000, disableOnInteraction: false },
       pagination: { el: '.testiSwiper .swiper-pagination', clickable: true },
+      navigation: { prevEl: '#testiPrev', nextEl: '#testiNext' },
+      breakpoints: { 680: { slidesPerView: 1.15 }, 1100: { slidesPerView: 1.25 } },
     });
   }
 

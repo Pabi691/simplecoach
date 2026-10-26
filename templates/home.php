@@ -243,9 +243,17 @@ $bsvg = [
 </section>
 
 <!-- ===== TESTIMONIALS ===== -->
-<section class="section">
-  <div class="container">
-    <div class="section-head center"><span class="eyebrow">Testimonials</span><h2>What Our Customers Say</h2></div>
+<section class="section soft testi-section">
+  <div class="container testi-grid">
+    <div class="testi-head">
+      <span class="eyebrow">Testimonials</span>
+      <h2>What Our Customers Say</h2>
+      <p class="lead">Trusted by groups, businesses and travellers across the UK.</p>
+      <div class="testi-nav">
+        <button class="testi-arrow" id="testiPrev" type="button" aria-label="Previous review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="testi-arrow" id="testiNext" type="button" aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
     <div class="swiper testiSwiper">
       <div class="swiper-wrapper">
         <?php foreach ([
@@ -257,13 +265,15 @@ $bsvg = [
           'I would highly recommend this minibus company. First class service from start to finish. Minibus was on time and the driver was very friendly and professional.',
         ] as $t): ?>
         <div class="swiper-slide">
-          <div class="testi"><div class="stars">★★★★★</div><blockquote>“<?= e($t) ?>”</blockquote>
-            <div class="who"><div class="avatar">★</div><div style="text-align:left"><small style="color:var(--muted)">Verified customer</small></div></div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <blockquote>“<?= e($t) ?>”</blockquote>
+            <div class="who"><div class="avatar">★</div><div><b>Verified customer</b><small>Simple Coach Hire</small></div></div>
           </div>
         </div>
         <?php endforeach; ?>
       </div>
-      <div class="swiper-pagination" style="position:relative;margin-top:24px"></div>
+      <div class="swiper-pagination"></div>
     </div>
   </div>
 </section>
