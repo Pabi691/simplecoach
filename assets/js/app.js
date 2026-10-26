@@ -127,6 +127,8 @@
     bind('drop_location', 'dropoff_latitude', 'dropoff_longitude');
     bind('s_pickup_location', 's_pickup_latitude', 's_pickup_longitude');
     bind('s_drop_location', 's_dropoff_latitude', 's_dropoff_longitude');
+    bind('side_pickup_location', 'side_pickup_latitude', 'side_pickup_longitude');
+    bind('side_drop_location', 'side_dropoff_latitude', 'side_dropoff_longitude');
   }
   function calcDistance() {
     const pl = $('#pickup_latitude')?.value, pn = $('#pickup_longitude')?.value;
@@ -164,7 +166,7 @@
   }
 
   // both the hero quote form and the sticky bar open the same details step
-  ['#quoteForm', '#quoteFormSticky'].forEach(sel => {
+  ['#quoteForm', '#quoteFormSticky', '#quoteFormSide'].forEach(sel => {
     const f = $(sel);
     f?.addEventListener('submit', e => { e.preventDefault(); if (!f.reportValidity()) return; openBookingFrom(f); });
   });
