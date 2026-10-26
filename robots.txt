@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /crm/
+Disallow: /booking.php
+
+Sitemap: https://simplecoachhire.com/sitemap.xml

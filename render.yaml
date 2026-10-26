@@ -1,0 +1,33 @@
+# Render Blueprint — deploy the website as a Docker web service.
+# In Render: New + -> Blueprint -> pick your GitHub repo. It reads this file.
+# Then fill in the env var values (they are left blank here so no secrets live in git).
+services:
+  - type: web
+    name: simplecoachhire
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: DB_HOST            # your cloud MySQL host, e.g. mysql-xxxx.aivencloud.com
+        sync: false
+      - key: DB_PORT            # the port your provider gives (Aiven ~12345, TiDB 4000)
+        sync: false
+      - key: DB_NAME            # on Aiven usually 'defaultdb'
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: DB_SSL             # set to 1 (cloud MySQL needs TLS); or ship app/ca.pem instead
+        value: "1"
+      - key: SITE_URL           # e.g. https://simplecoachhire.onrender.com (or your domain)
+        sync: false
+      - key: API_KEY            # rotated transport-io token
+        sync: false
+      - key: STRIPE_SECRET_KEY  # rotated sk_live key
+        sync: false
+      - key: GOOGLE_MAPS_KEY
+        sync: false
+      - key: BOOKING_BASE_URL
+        value: https://booking.simplecoachhire.com

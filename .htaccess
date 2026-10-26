@@ -1,0 +1,24 @@
+# Pretty URLs -> front controller
+Options -Indexes
+RewriteEngine On
+
+# If this runs in a subfolder on localhost (e.g. /newsite/public/), set the base:
+# RewriteBase /newsite/public/
+
+# Real sitemap / robots
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# Skip existing files/dirs (assets, crm, etc.)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Everything else -> index.php?route=<slug>
+RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -1,0 +1,6 @@
+# local junk
+.DS_Store
+Thumbs.db
+*.log
+# never commit a local secrets file if you add one
+app/config.local.php
