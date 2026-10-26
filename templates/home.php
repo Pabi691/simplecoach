@@ -176,11 +176,18 @@ $bsvg = [
     <div class="cov-map reveal" id="covMap">
       <span class="cov-script">Nationwide Coverage</span>
       <img class="cov-img" src="<?= asset('image/coverage-uk.png') ?>" alt="Map of the UK showing our nationwide coach and minibus coverage" loading="lazy">
+      <svg class="cov-fx" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <?php
+        $fx = ['M36,34 Q40,31 44,34','M44,34 Q49,41 50,49','M36,34 Q44,40 50,49',
+               'M50,49 Q48,52 47,55','M47,55 Q43,56 40,57','M47,55 Q46,59 46,64','M46,64 Q51,68 55,73'];
+        foreach ($fx as $i => $d) echo '<path class="cov-flow" pathLength="100" d="'.$d.'" style="animation-delay:'.($i*0.45).'s"/>';
+        ?>
+      </svg>
       <?php foreach ([
         ['Glasgow','36%','34%','l'],['Edinburgh','44%','34%','r'],['Leeds','50%','49%','r'],
         ['Liverpool','40%','57%','l'],['Manchester','47%','55%','r'],['Birmingham','46%','64%','r'],['London','55%','73%','r'],
-      ] as $l): ?>
-        <span class="cov-lab<?= $l[3]==='l' ? ' l' : '' ?>" style="left:<?= $l[1] ?>;top:<?= $l[2] ?>"><?= e($l[0]) ?></span>
+      ] as $i => $l): ?>
+        <span class="cov-lab<?= $l[3]==='l' ? ' l' : '' ?>" style="left:<?= $l[1] ?>;top:<?= $l[2] ?>;--d:<?= $i*0.35 ?>s"><?= e($l[0]) ?></span>
       <?php endforeach; ?>
     </div>
   </div>

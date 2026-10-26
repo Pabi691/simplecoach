@@ -430,20 +430,33 @@ img{max-width:100%;display:block}
   padding:11px 18px;border-radius:999px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-sm);transition:.25s}
 .chip:hover{border-color:var(--cyan);color:var(--royal);transform:translateY(-2px)}
 .chip .i{color:var(--cyan)}
-/* ===== Coverage map (image + overlaid labels) ===== */
+/* ===== Coverage map (image + animated overlay) ===== */
 .cov-map{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(12,45,110,.14)}
 .cov-img{display:block;width:100%;height:auto}
+/* travelling light "comets" along the routes */
+.cov-fx{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.cov-flow{stroke:#8fe8ff;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-dasharray:3 97;
+  vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 4px #21B9F3);animation:covFlow 3s linear infinite}
+@keyframes covFlow{from{stroke-dashoffset:0}to{stroke-dashoffset:-100}}
 .cov-lab{position:absolute;z-index:3;transform:translateY(-50%);margin-left:17px;
   background:rgba(7,21,45,.82);color:#fff;border:1px solid rgba(120,210,255,.55);
   font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:999px;white-space:nowrap;
   box-shadow:0 6px 16px rgba(4,12,28,.4);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+/* glowing node dot + pulsing ring (ring via box-shadow so it never fights the positioning transform) */
 .cov-lab::before{content:"";position:absolute;top:50%;left:-17px;transform:translate(-50%,-50%);
-  width:12px;height:12px;border-radius:50%;background:#21B9F3;box-shadow:0 0 10px 3px rgba(33,185,243,.85)}
+  width:12px;height:12px;border-radius:50%;background:#21B9F3;
+  box-shadow:0 0 10px 3px rgba(33,185,243,.85);animation:covPulse 2.8s ease-out infinite;animation-delay:var(--d,0s)}
 .cov-lab.l{margin-left:0;margin-right:17px;transform:translate(-100%,-50%)}
 .cov-lab.l::before{left:auto;right:-17px;transform:translate(50%,-50%)}
+@keyframes covPulse{
+  0%{box-shadow:0 0 10px 3px rgba(33,185,243,.85),0 0 0 0 rgba(33,185,243,.5)}
+  70%{box-shadow:0 0 10px 3px rgba(33,185,243,.85),0 0 0 13px rgba(33,185,243,0)}
+  100%{box-shadow:0 0 10px 3px rgba(33,185,243,.85),0 0 0 0 rgba(33,185,243,0)}
+}
 .cov-script{position:absolute;top:14px;right:20px;z-index:4;font-family:'Dancing Script','Segoe Script',cursive;
   font-size:2rem;line-height:1;color:#153C91;transform:rotate(-7deg);font-weight:700;opacity:.95;text-align:center}
 @media (max-width:620px){.cov-lab{font-size:.66rem;padding:3px 8px}.cov-script{font-size:1.5rem}}
+@media (prefers-reduced-motion:reduce){.cov-flow{display:none}.cov-lab::before{animation:none}}
 
 /* ---- CTA band ---- */
 .cta-band{position:relative;border-radius:var(--radius-lg);overflow:hidden;color:#fff;
