@@ -9,10 +9,11 @@ $wa          = setting('whatsapp', SITE_WHATSAPP);
       <div>
         <a class="brand" href="<?= url('') ?>" style="margin-bottom:16px"><span>Simple<small>Coach Hire</small></span></a>
         <p style="max-width:34ch"><?= e(setting('footer_about','')) ?></p>
-        <div class="trustpilot" style="margin-top:14px">
+        <?php $tpUrl = setting('trustpilot_url'); $tpTag = $tpUrl ? 'a' : 'div'; ?>
+        <<?= $tpTag ?> class="trustpilot" style="margin-top:14px"<?= $tpUrl ? ' href="' . e($tpUrl) . '" target="_blank" rel="noopener"' : '' ?>>
           <span class="stars">★★★★★</span>
           <span style="color:#fff">Trustpilot <?= e(setting('trustpilot_rating','4.8')) ?>/5</span>
-        </div>
+        </<?= $tpTag ?>>
       </div>
       <div>
         <h4>Contact Us</h4>

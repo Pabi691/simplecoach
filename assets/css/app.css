@@ -557,7 +557,8 @@ img{max-width:100%;display:block}
 .footer-contact .i{color:var(--cyan);flex:0 0 auto}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:46px;padding-top:22px;
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem}
-.trustpilot{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);padding:10px 16px;border-radius:12px}
+.trustpilot{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);padding:10px 16px;border-radius:12px;text-decoration:none;transition:.2s}
+a.trustpilot:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
 .trustpilot .stars{color:#00b67a}
 
 /* ---- WhatsApp float ---- */
