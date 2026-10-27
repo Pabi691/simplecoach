@@ -20,12 +20,19 @@ $phoneTel = preg_replace('/\s+/', '', setting('phone', SITE_PHONE));
     <?php if (!empty($page['hero_subheading'])): ?><p class="sub" style="max-width:62ch;color:rgba(255,255,255,.85)"><?= e($page['hero_subheading']) ?></p><?php endif; ?>
   </div>
 </section>
+<?php if ($page['slug'] === 'our-fleets'): ?>
+  <?php if (trim(strip_tags($page['content'])) !== ''): ?>
+  <section class="section"><div class="container"><article class="prose"><?= $page['content'] ?></article></div></section>
+  <?php endif; ?>
+  <?php require __DIR__ . '/partials/fleet-section.php'; ?>
+<?php else: ?>
 <section class="section">
   <div class="container">
     <article class="prose"><?= $page['content'] ?></article>
     <div class="center" style="margin-top:46px"><a class="btn btn-primary btn-lg" href="<?= url('#book') ?>">Get an Instant Quote →</a></div>
   </div>
 </section>
+<?php endif; ?>
 
 <?php else: ?>
 <!-- ===== Service / location page (banner + feature photo + H1 + sticky quote form) ===== -->

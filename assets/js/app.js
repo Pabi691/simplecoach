@@ -79,6 +79,13 @@
     $$('.reveal').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
   }
 
+  /* ---- Hide content images that fail to load (some old uploads 404) ---- */
+  $$('.prose img, .page-feat').forEach(img => {
+    const hide = () => { img.style.display = 'none'; };
+    if (img.complete && img.naturalWidth === 0) hide();
+    else img.addEventListener('error', hide);
+  });
+
   /* ---- Swiper carousels ---- */
   if (window.Swiper) {
     if ($('.fleetSwiper')) new Swiper('.fleetSwiper', {
