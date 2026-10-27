@@ -2,11 +2,36 @@
 $seo_obj = $page; $seo_type = 'page';
 require __DIR__ . '/partials/header.php';
 
-// Banner stays the branded default; the page's own photo is shown above the H1 in the content.
+/* General / functional pages keep the simple layout (no quote sidebar, no feature photo).
+   Everything else is treated as a service/location page and gets the sticky quote form. */
+$plainPages = ['about-us','contact-us','our-fleets','faq','review','reviews','service-area',
+               'terms-of-engagement','privacy-policy','services','blog'];
+$isPlain  = in_array($page['slug'], $plainPages, true);
+$phoneTel = preg_replace('/\s+/', '', setting('phone', SITE_PHONE));
+?>
+
+<?php if ($isPlain): ?>
+<!-- ===== Simple page (About / Contact / Fleets / FAQ / Reviews / etc.) ===== -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="<?= url('') ?>">Home</a> / <?= e($page['title']) ?></div>
+    <span class="eyebrow"><?= e(setting('site_name', SITE_NAME)) ?></span>
+    <h1><?= e($page['hero_heading'] ?: $page['title']) ?></h1>
+    <?php if (!empty($page['hero_subheading'])): ?><p class="sub" style="max-width:62ch;color:rgba(255,255,255,.85)"><?= e($page['hero_subheading']) ?></p><?php endif; ?>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <article class="prose"><?= $page['content'] ?></article>
+    <div class="center" style="margin-top:46px"><a class="btn btn-primary btn-lg" href="<?= url('#book') ?>">Get an Instant Quote →</a></div>
+  </div>
+</section>
+
+<?php else: ?>
+<!-- ===== Service / location page (banner + feature photo + H1 + sticky quote form) ===== -->
+<?php
 $bannerImg = asset('image/hero-bg.jpg');
 $featImg   = !empty($page['hero_image']) ? $page['hero_image'] : '';
-$phoneTel  = preg_replace('/\s+/', '', setting('phone', SITE_PHONE));
-
 $svgPin  = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>';
 $svgCal  = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>';
 $svgPhone= '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
@@ -48,4 +73,6 @@ $svgPhone= '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="
 </section>
 
 <?php require __DIR__ . '/partials/booking-modal.php'; ?>
+<?php endif; ?>
+
 <?php require __DIR__ . '/partials/footer.php'; ?>
