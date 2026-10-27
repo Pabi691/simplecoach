@@ -2,12 +2,6 @@
 $seo_obj = $page ?: ['title' => setting('site_name', SITE_NAME), 'slug' => 'home'];
 require __DIR__ . '/partials/header.php';
 $dest = menu_tree('destinations');
-$fleet = [
-  ['n' => '70 Seater Coach', 'img' => 'fleet-70.jpg', 'r' => '4.9', 'rev' => '120+', 'pax' => '70 Passengers', 'desc' => 'Spacious luxury for large groups and long journeys.'],
-  ['n' => '54 Seater Coach', 'img' => 'fleet-54.jpg', 'r' => '4.8', 'rev' => '98+',  'pax' => '54 Passengers', 'desc' => 'Comfortable executive travel with ample luggage space.'],
-  ['n' => '49 Seater Coach', 'img' => 'fleet-49.jpg', 'r' => '4.7', 'rev' => '85+',  'pax' => '49 Passengers', 'desc' => 'Reliable group transport with air conditioning.'],
-  ['n' => '16 Seater Minibus','img' => 'fleet-16.jpg', 'r' => '4.9', 'rev' => '140+', 'pax' => '16 Passengers', 'desc' => 'Perfect for smaller groups and airport transfers.'],
-];
 ?>
 
 <!-- ===== HERO (cinematic banner: horizontal quote bar + parked bus) ===== -->
@@ -80,34 +74,7 @@ $fleet = [
 </section>
 
 <!-- ===== FLEET ===== -->
-<section class="section" id="fleet">
-  <div class="container">
-    <div class="section-head center">
-      <span class="eyebrow">Our Fleet</span>
-      <h2>Find the Perfect Ride</h2>
-      <p class="lead">Modern, comfortable and reliable vehicles for every occasion.</p>
-    </div>
-    <div class="swiper fleetSwiper">
-      <div class="swiper-wrapper">
-        <?php foreach ($fleet as $f): ?>
-        <div class="swiper-slide">
-          <div class="fleet-card reveal">
-            <div class="fleet-img"><span class="tag"><?= e($f['pax']) ?></span>
-              <img src="<?= asset('image/' . $f['img']) ?>" alt="<?= e($f['n']) ?>" loading="lazy" onerror="this.remove()"></div>
-            <div class="fleet-body">
-              <h3><?= e($f['n']) ?></h3>
-              <div class="rating-row"><span class="stars">★★★★★</span><span><?= e($f['r']) ?> (<?= e($f['rev']) ?> reviews)</span></div>
-              <div class="fleet-specs"><span>👥 <?= e($f['pax']) ?></span><span>🧳 Luggage Space</span><span>❄ Air Conditioning</span></div>
-              <a class="btn btn-outline" href="<?= url('our-fleets') ?>">View Vehicle →</a>
-            </div>
-          </div>
-        </div>
-        <?php endforeach; ?>
-      </div>
-      <div class="swiper-pagination" style="position:relative;margin-top:26px"></div>
-    </div>
-  </div>
-</section>
+<?php require __DIR__ . '/partials/fleet-section.php'; ?>
 
 <!-- ===== WELCOME / COMMITMENT ===== -->
 <?php
