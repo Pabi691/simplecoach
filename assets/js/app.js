@@ -15,6 +15,32 @@
   $('#navClose')?.addEventListener('click', () => mob.classList.remove('open'));
   $$('#mobileNav a').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
 
+  /* ---- FAQ: turn CMS heading-and-answer pairs into accessible accordions ---- */
+  const faqProse = $('.faq-prose');
+  if (faqProse) {
+    const questions = Array.from(faqProse.children).filter(el => /^(H2|H3)$/.test(el.tagName));
+    if (questions.length > 1) {
+      questions.forEach((heading, index) => {
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        const answer = document.createElement('div');
+        details.className = 'faq-item';
+        answer.className = 'faq-answer';
+        summary.textContent = heading.textContent.trim();
+        let sibling = heading.nextSibling;
+        while (sibling && !(sibling.nodeType === 1 && /^(H2|H3)$/.test(sibling.tagName))) {
+          const next = sibling.nextSibling;
+          if (sibling.nodeType !== 3 || sibling.textContent.trim()) answer.appendChild(sibling);
+          else sibling.remove();
+          sibling = next;
+        }
+        details.append(summary, answer);
+        heading.replaceWith(details);
+        if (index === 0) details.open = true;
+      });
+    }
+  }
+
   /* ---- Lenis smooth scroll ---- */
   let lenis = null;
   if (window.Lenis) {
@@ -48,9 +74,10 @@
       .from('.hero-contact', { y: 18, opacity: 0, duration: .7 }, '-=.5')
       .from('.scroll-cue', { opacity: 0, duration: .8 }, '-=.3');
 
-    // Parallax: hero foreground drifts up as you scroll
+    // Keep hero copy in its section while the page scrolls; translating this
+    // container could push the copy past the banner edge on short viewports.
     gsap.to('.hero .container', {
-      yPercent: 24, opacity: .55, ease: 'none',
+      opacity: .55, ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
     });
     // Subtle parallax on dark-section media images
@@ -88,10 +115,14 @@
 
   /* ---- Swiper carousels ---- */
   if (window.Swiper) {
-    if ($('.fleetSwiper')) new Swiper('.fleetSwiper', {
-      slidesPerView: 1.1, spaceBetween: 24, grabCursor: true,
-      pagination: { el: '.fleetSwiper .swiper-pagination', clickable: true },
-      breakpoints: { 640: { slidesPerView: 2 }, 992: { slidesPerView: 3 } },
+    // each fleet card has its own image slider (multiple photos per vehicle)
+    document.querySelectorAll('.fleet-slider').forEach(el => {
+      if (el.querySelectorAll('.swiper-slide').length < 2) return;
+      new Swiper(el, {
+        loop: true, grabCursor: true, speed: 650,
+        autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+        pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+      });
     });
     if ($('.testiSwiper')) new Swiper('.testiSwiper', {
       slidesPerView: 1.08, spaceBetween: 20, loop: true, grabCursor: true,
@@ -134,6 +165,8 @@
     bind('drop_location', 'dropoff_latitude', 'dropoff_longitude');
     bind('s_pickup_location', 's_pickup_latitude', 's_pickup_longitude');
     bind('s_drop_location', 's_dropoff_latitude', 's_dropoff_longitude');
+    bind('p_pickup_location', 'p_pickup_latitude', 'p_pickup_longitude');
+    bind('p_drop_location', 'p_dropoff_latitude', 'p_dropoff_longitude');
     bind('side_pickup_location', 'side_pickup_latitude', 'side_pickup_longitude');
     bind('side_drop_location', 'side_dropoff_latitude', 'side_dropoff_longitude');
   }
@@ -160,8 +193,19 @@
   /* ---- Booking flow: quick form (hero OR sticky bar) -> modal -> submit ---- */
   const modal = $('#bookingModal');
   const bForm = $('#bookingForm');
+  const quotePrompt = $('#quotePrompt');
   const STEP1 = ['pickup_location','pickup_latitude','pickup_longitude',
                  'dropoff_location','dropoff_latitude','dropoff_longitude','pickup_date','distance'];
+
+  const closeQuotePrompt = () => {
+    quotePrompt?.classList.remove('open');
+    quotePrompt?.setAttribute('aria-hidden', 'true');
+  };
+  const openQuotePrompt = () => {
+    if (!quotePrompt || quotePrompt.classList.contains('open') || modal?.classList.contains('open') || document.visibilityState !== 'visible') return;
+    quotePrompt.classList.add('open');
+    quotePrompt.setAttribute('aria-hidden', 'false');
+  };
 
   function openBookingFrom(form) {
     const get = n => form.querySelector(`[name="${n}"]`)?.value || '';
@@ -172,18 +216,34 @@
     modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
   }
 
-  // both the hero quote form and the sticky bar open the same details step
+  // Hero, sticky and sidebar forms open the same details step.
   ['#quoteForm', '#quoteFormSticky', '#quoteFormSide'].forEach(sel => {
     const f = $(sel);
     f?.addEventListener('submit', e => { e.preventDefault(); if (!f.reportValidity()) return; openBookingFrom(f); });
   });
+  const promptForm = $('#quoteFormPrompt');
+  promptForm?.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!promptForm.reportValidity()) return;
+    closeQuotePrompt();
+    openBookingFrom(promptForm);
+  });
 
-  // show the sticky quote bar once the hero form scrolls out of view
+  // Show the sticky quote bar only after the home hero has finished.
   const sticky = $('#stickyQuote'), heroEl = $('#hero');
   if (sticky && heroEl) {
-    const onScrollSticky = () => sticky.classList.toggle('show', window.scrollY > heroEl.offsetHeight - 130);
+    const onScrollSticky = () => {
+      const show = heroEl.getBoundingClientRect().bottom <= 0;
+      sticky.classList.toggle('show', show);
+      sticky.setAttribute('aria-hidden', String(!show));
+    };
     onScrollSticky(); window.addEventListener('scroll', onScrollSticky, { passive: true });
   }
+  $('#stickyQuoteOpen')?.addEventListener('click', openQuotePrompt);
+  $('#quotePromptClose')?.addEventListener('click', closeQuotePrompt);
+  quotePrompt?.addEventListener('click', e => { if (e.target === quotePrompt) closeQuotePrompt(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeQuotePrompt(); });
+  if (quotePrompt && heroEl) window.setInterval(openQuotePrompt, 5 * 60 * 1000);
   $('#bmClose')?.addEventListener('click', () => modal.classList.remove('open'));
   modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
 

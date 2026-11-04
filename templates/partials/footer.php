@@ -7,7 +7,9 @@ $wa          = setting('whatsapp', SITE_WHATSAPP);
   <div class="container">
     <div class="footer-grid">
       <div>
-        <a class="brand" href="<?= url('') ?>" style="margin-bottom:16px"><span>Simple<small>Coach Hire</small></span></a>
+        <a class="brand" href="<?= url('') ?>" aria-label="<?= e(setting('site_name', SITE_NAME)) ?>">
+          <img class="brand-logo" src="<?= asset('image/logo-dark.png') ?>" alt="<?= e(setting('site_name', SITE_NAME)) ?>">
+        </a>
         <p style="max-width:34ch"><?= e(setting('footer_about','')) ?></p>
         <?php $tpUrl = setting('trustpilot_url'); $tpTag = $tpUrl ? 'a' : 'div'; ?>
         <<?= $tpTag ?> class="trustpilot" style="margin-top:14px"<?= $tpUrl ? ' href="' . e($tpUrl) . '" target="_blank" rel="noopener"' : '' ?>>

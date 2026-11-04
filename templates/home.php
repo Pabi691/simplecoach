@@ -111,7 +111,7 @@ $bsvg = [
     </svg>
   </div>
   <div class="container split">
-    <div class="welcome-media reveal" style="background-image:url('<?= asset('image/welcome.jpg') ?>')"></div>
+    <div class="welcome-media reveal" style="background-image:url('<?= asset('image/fleet-16-silver.jpg') ?>')"></div>
     <div>
       <span class="eyebrow">Welcome to Simple Coach Hire</span>
       <div class="welcome-head"><span class="vbar"></span><h2>Your Journey.<br>Our Commitment.</h2></div>
@@ -275,7 +275,7 @@ $svgPhone = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
       </div>
     </div>
     <div class="explore-visual reveal">
-      <div class="ev-card" style="background-image:url('<?= asset('image/welcome.jpg') ?>')"></div>
+      <div class="ev-card" style="background-image:url('<?= asset('image/bus2.jpg') ?>')"></div>
       <div class="float-stat fs-top"><span class="fs-ico"><?= $bsvg['bus'] ?></span><div><b>50+</b><small>Vehicles</small></div></div>
       <div class="float-stat fs-bot"><span class="fs-ico green"><?= $bsvg['shield'] ?></span><div><b>100%</b><small>Insured</small></div></div>
     </div>

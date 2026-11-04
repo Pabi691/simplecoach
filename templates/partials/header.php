@@ -20,6 +20,7 @@ $navActive = function ($m) use ($curSlug) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
 <?= render_seo($seo_obj, $seo_type) ?>
 <?php if ($gid = setting('ga_measurement_id')): ?>
 <script async src="https://www.googletagmanager.com/gtag/js?id=<?= e($gid) ?>"></script>
@@ -113,6 +114,7 @@ $navActive = function ($m) use ($curSlug) {
 <div class="sticky-quote" id="stickyQuote" aria-hidden="true">
   <div class="container">
     <strong class="sq-title">Instant Quote</strong>
+    <button class="sticky-quote-open" id="stickyQuoteOpen" type="button" aria-controls="quotePrompt">Get a quote <span aria-hidden="true">→</span></button>
     <form id="quoteFormSticky" autocomplete="off">
       <div class="sq-in"><span class="i">📍</span><input type="text" id="s_pickup_location" name="pickup_location" placeholder="Pickup" required>
         <input type="hidden" name="pickup_latitude" id="s_pickup_latitude"><input type="hidden" name="pickup_longitude" id="s_pickup_longitude"></div>
@@ -121,6 +123,28 @@ $navActive = function ($m) use ($curSlug) {
       <div class="sq-in"><span class="i">📅</span><input type="date" name="pickup_date" required></div>
       <input type="hidden" name="distance">
       <button class="btn btn-primary btn-cta" type="submit">Get Quote <span class="btn-arrow">→</span></button>
+    </form>
+  </div>
+</div>
+
+<!-- Minimal quote reminder: opened from the mobile sticky bar and every five minutes on the home page. -->
+<div class="quote-prompt" id="quotePrompt" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="quotePromptTitle">
+  <div class="quote-prompt-card">
+    <button class="quote-prompt-close" id="quotePromptClose" type="button" aria-label="Close quote form">×</button>
+    <span class="quote-prompt-kicker">Fast &amp; free</span>
+    <h2 id="quotePromptTitle">Get an instant quote</h2>
+    <p>Tell us where you are travelling and we will take care of the rest.</p>
+    <form id="quoteFormPrompt" autocomplete="off">
+      <label class="quote-prompt-label" for="p_pickup_location">Pickup address</label>
+      <div class="sq-in"><span class="i" aria-hidden="true">●</span><input type="text" id="p_pickup_location" name="pickup_location" placeholder="Enter a location" required>
+        <input type="hidden" id="p_pickup_latitude" name="pickup_latitude"><input type="hidden" id="p_pickup_longitude" name="pickup_longitude"></div>
+      <label class="quote-prompt-label" for="p_drop_location">Drop-off address</label>
+      <div class="sq-in"><span class="i" aria-hidden="true">●</span><input type="text" id="p_drop_location" name="dropoff_location" placeholder="Enter destination" required>
+        <input type="hidden" id="p_dropoff_latitude" name="dropoff_latitude"><input type="hidden" id="p_dropoff_longitude" name="dropoff_longitude"></div>
+      <label class="quote-prompt-label" for="p_pickup_date">Pickup date</label>
+      <div class="sq-in"><span class="i" aria-hidden="true">◫</span><input type="date" id="p_pickup_date" name="pickup_date" required></div>
+      <input type="hidden" name="distance">
+      <button class="btn btn-cta quote-prompt-submit" type="submit">Continue to quote <span class="btn-arrow">→</span></button>
     </form>
   </div>
 </div>
