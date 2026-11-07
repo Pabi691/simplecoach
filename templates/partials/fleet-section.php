@@ -45,13 +45,15 @@ $fleet_src = function ($img) {
           <h3 class="fleet-title"><span class="num"><?= e($seats) ?></span> Seater</h3>
           <p class="fleet-tag"><?= e($fl['tagline']) ?></p>
           <div class="fleet-rate"><span class="stars">★★★★★</span><b><?= e($fl['rating']) ?></b></div>
-          <div class="fleet-feats">
-            <span><i><?= $icoSeat ?></i><?= e($seats) ?> Seats</span>
-            <?php foreach ($feats as $ft): ?>
-            <span><i><?= $featIco[$ft] ?? $icoAc ?></i><?= e($ft) ?></span>
-            <?php endforeach; ?>
-          </div>
-          <a class="fleet-btn" href="<?= url('our-fleets') ?>"><span class="fb-ic">→</span>View Details</a>
+          <details class="fleet-details">
+            <summary class="fleet-btn"><span class="fb-ic">→</span><span class="fd-show">View Details</span><span class="fd-hide">Hide Details</span></summary>
+            <div class="fleet-feats">
+              <span><i><?= $icoSeat ?></i><?= e($seats) ?> Seats</span>
+              <?php foreach ($feats as $ft): ?>
+              <span><i><?= $featIco[$ft] ?? $icoAc ?></i><?= e($ft) ?></span>
+              <?php endforeach; ?>
+            </div>
+          </details>
         </div>
       </div>
       <?php endforeach; ?>
