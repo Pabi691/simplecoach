@@ -145,6 +145,7 @@ $svgPhone= '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="
   </div>
 </section>
 
+<?php require __DIR__ . '/partials/fleet-section.php'; ?>
 <?php require __DIR__ . '/partials/booking-modal.php'; ?>
 <?php endif; ?>
 
