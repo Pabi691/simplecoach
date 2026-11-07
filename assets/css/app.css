@@ -343,6 +343,9 @@ img{max-width:100%;display:block}
 
 /* ---- Fleet grid (dynamic cards, each with its own image slider) ---- */
 .fleet-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:22px}
+.fleet-swiper{position:relative}
+.fleet-pair{display:contents}
+.fleet-page-dots{display:none}
 .fleet-slider{position:absolute;inset:0}
 .fleet-slider .swiper-slide{overflow:hidden}
 .fleet-slider .swiper-pagination{bottom:8px}
@@ -380,7 +383,17 @@ img{max-width:100%;display:block}
 .fleet-btn .fb-ic{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.22);font-size:.95rem;flex:none}
 .fleet-btn:hover{box-shadow:0 12px 26px rgba(33,185,243,.5);transform:translateY(-1px)}
 .stars{color:var(--gold);font-size:.95rem;letter-spacing:1px}
-@media (max-width:560px){.fleet-card{flex:1 1 100%;max-width:420px}}
+@media (max-width:640px){
+  /* mobile: the whole section becomes a swiper — 2 stacked cards per page */
+  .fleet-swiper{overflow:hidden;padding-bottom:32px}
+  .fleet-grid{flex-wrap:nowrap;gap:0}
+  .fleet-pair{display:flex;flex-direction:column;gap:16px;box-sizing:border-box}
+  .fleet-card{flex:0 0 auto;width:100%;max-width:none}
+  .fleet-card.reveal{opacity:1!important;transform:none!important}
+  .fleet-page-dots{display:block}
+  .fleet-page-dots .swiper-pagination-bullet{background:var(--royal);opacity:.3}
+  .fleet-page-dots .swiper-pagination-bullet-active{background:var(--cyan);opacity:1}
+}
 
 /* ---- Welcome split ---- */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}

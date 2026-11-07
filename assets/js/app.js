@@ -119,11 +119,29 @@
     document.querySelectorAll('.fleet-slider').forEach(el => {
       if (el.querySelectorAll('.swiper-slide').length < 2) return;
       new Swiper(el, {
-        loop: true, grabCursor: true, speed: 650,
+        loop: true, speed: 650, nested: true, allowTouchMove: false,
         autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
         pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
       });
     });
+    // mobile only: the whole fleet section becomes a swiper (2 cards per page)
+    const fleetEl = document.querySelector('.fleet-swiper');
+    let fleetSwiper = null;
+    const syncFleetSwiper = () => {
+      const mobile = window.matchMedia('(max-width: 640px)').matches;
+      if (fleetEl && mobile && !fleetSwiper) {
+        fleetSwiper = new Swiper(fleetEl, {
+          slidesPerView: 1, spaceBetween: 0, rewind: true, grabCursor: true,
+          autoplay: { delay: 4800, disableOnInteraction: false, pauseOnMouseEnter: true },
+          pagination: { el: fleetEl.querySelector('.fleet-page-dots'), clickable: true },
+        });
+      } else if (fleetSwiper && !mobile) {
+        fleetSwiper.destroy(true, true);
+        fleetSwiper = null;
+      }
+    };
+    syncFleetSwiper();
+    window.addEventListener('resize', syncFleetSwiper, { passive: true });
     if ($('.testiSwiper')) new Swiper('.testiSwiper', {
       slidesPerView: 1.08, spaceBetween: 20, loop: true, grabCursor: true,
       autoplay: { delay: 6000, disableOnInteraction: false },
